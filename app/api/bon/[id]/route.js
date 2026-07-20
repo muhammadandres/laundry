@@ -3,7 +3,9 @@ import { NextResponse } from 'next/server'
 
 // PUT perbarui data bon (Edit)
 export async function PUT(request, { params }) {
-  const { id } = params
+  // PENTING: Tambahkan 'await' pada params
+  const { id } = await params 
+  
   const body = await request.json()
   const { nomor_bon, nama_karyawan, tanggal, total_bon } = body
 
@@ -14,18 +16,25 @@ export async function PUT(request, { params }) {
     .select()
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: error.message }, { status: 400 })
   }
-  return NextResponse.json(data[0])
+
+  return NextResponse.json(data)
 }
 
-// DELETE bon berdasarkan id
+// DELETE hapus data bon
 export async function DELETE(request, { params }) {
-  const { id } = params
-  const { error } = await supabase.from('bon').delete().eq('id', id)
+  // PENTING: Tambahkan 'await' pada params
+  const { id } = await params 
+
+  const { error } = await supabase
+    .from('bon')
+    .delete()
+    .eq('id', id)
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: error.message }, { status: 400 })
   }
-  return NextResponse.json({ success: true })
+
+  return NextResponse.json({ message: 'Data bon berhasil dihapus' })
 }

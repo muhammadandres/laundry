@@ -8,33 +8,34 @@ export default function Navbar({ activeTab, setActiveTab }) {
   ]
 
   return (
-    <header className="bg-slate-900 text-white shadow-lg sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="bg-slate-900 text-white shadow-lg sticky top-0 z-40 w-full overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between py-2.5 sm:py-0 sm:h-16 gap-2 sm:gap-4">
           
-          {/* Bagian Brand Name (Logo Kotak Sudah Dihapus) */}
-          <div className="flex items-center">
+          {/* Bagian Brand Name */}
+          <div className="flex items-center shrink-0">
             <div>
-              <span className="font-bold tracking-tight text-lg block leading-tight">ALFARIZKI LAUNDRY</span>
-              <span className="text-[10px] text-slate-400 uppercase tracking-widest block font-medium"></span>
+              <span className="font-bold tracking-tight text-base sm:text-lg block leading-tight text-center sm:text-left">
+                ALFARIZKI LAUNDRY
+              </span>
             </div>
           </div>
 
-          {/* Navigasi Menu */}
-          <nav className="flex space-x-1 sm:space-x-2">
+          {/* Navigasi Menu - Scrollable di HP jika layar sangat sempit */}
+          <nav className="flex items-center space-x-1 sm:space-x-2 overflow-x-auto max-w-full w-full sm:w-auto pb-1 sm:pb-0 justify-center sm:justify-start">
             {navItems.map((item) => {
               const isActive = activeTab === item.id
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
                       : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                   }`}
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={item.icon} />
                   </svg>
                   <span>{item.label}</span>
@@ -42,6 +43,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
               )
             })}
           </nav>
+
         </div>
       </div>
     </header>
